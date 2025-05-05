@@ -1,4 +1,16 @@
 <?php
+session_start();
+
+// Define allowed roles
+$allowed_roles = ['admin', 'data_entry'];
+
+// Check if the user's role is not in the allowed roles
+if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    
+    // Redirect to the login page if not authorized
+    header("Location: index.php");
+    exit();
+}
 require_once 'database.php';
 
 $db = new Database();

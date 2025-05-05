@@ -1,5 +1,17 @@
 <?php
 session_start();
+
+// Define allowed roles
+$allowed_roles = ['admin'];
+
+// Check if the user's role is not in the allowed roles
+if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    
+    // Redirect to the login page if not authorized
+    header("Location: index.php");
+    exit();
+}
+session_start();
 require_once 'database.php';
 require_once 'vendor/autoload.php'; // For TCPDF
 

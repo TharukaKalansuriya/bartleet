@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+// Define allowed roles
+$allowed_roles = ['admin', 'manager'];
+
+// Check if the user's role is not in the allowed roles
+if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    
+    // Redirect to the login page if not authorized
+    header("Location: index.php");
+    exit();
+}
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,9 +60,6 @@
       </a>
       <a href="amc.php" class="bg-gradient-to-b from-red-200 to-gray-300 shadow-lg rounded-full py-4 px-8 font-semibold text-gray-800 text-center hover:scale-105 transition duration-200">
         AMC
-      </a>
-      <a href="compressor.php" class="bg-gradient-to-b from-red-200 to-gray-300 shadow-lg rounded-full py-4 px-8 font-semibold text-gray-800 text-center hover:scale-105 transition duration-200">
-        COMPRESSOR
       </a>
       <a href="teamsview.php" class="bg-gradient-to-b from-red-200 to-gray-300 shadow-lg rounded-full py-4 px-8 font-semibold text-gray-800 text-center hover:scale-105 transition duration-200">
         View Team Members

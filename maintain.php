@@ -126,7 +126,6 @@ $personResult = $conn->query($personSql);
         <h2 class="text-xl font-semibold text-red-500">Maintenance Records</h2>
         <div class="flex space-x-2">
           <input id="searchInput" type="text" placeholder="Search records..." class="border border-red-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-red-300" onkeyup="filterTable()">
-          <button onclick="openAddModal()" class="bg-green-500 text-white py-1 px-4 rounded hover:bg-green-600 transition duration-200">Add New</button>
         </div>
       </div>
 
