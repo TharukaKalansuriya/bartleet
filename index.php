@@ -17,12 +17,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $role = trim($_POST['role']);
     $password = trim($_POST['password']);
 
-    // Define passwords for each role
-    $rolePasswords = [
-        'admin' => 'admin',
-        'manager' => 'manager',
-        'data_entry' => 'data',
-    ];
+    // Load passwords from file
+    $passwordFile = 'rolepasswords.php';
+    if (file_exists($passwordFile)) {
+        $rolePasswords = include($passwordFile);
+    } else {
+        // Fallback to default passwords if file doesn't exist
+        $rolePasswords = [
+            'admin' => 'admin',
+            'manager' => 'manager',
+            'data_entry' => 'data',
+        ];
+    }
 
     // Check if selected role exists
     if (array_key_exists($role, $rolePasswords)) {
@@ -40,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     header("Location: home.php");
                     break;
                 case 'data_entry':
-                    header("Location: manage.php");
+                    header("Location: dataentrydb.php");
                    
             }
             exit();

@@ -115,12 +115,15 @@ body.loading {
                 </div>
                 
                 <div class="flex flex-col sm:flex-row gap-4 mt-6 md:mt-0">
+                    <a href="change_passwords.php" class="btn-primary text-white font-semibold py-3 px-6 rounded-lg shadow text-center">
+                        <i class="fas fa-key mr-2"></i> Manage Passwords
+                    </a>
                     <a href="manage.php" class="btn-primary text-white font-semibold py-3 px-6 rounded-lg shadow text-center">
                         <i class="fas fa-database mr-2"></i> Modify Data
                     </a>
-                    <a href="logout.php" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow text-center">
-                        <i class="fas fa-sign-out-alt mr-2"></i> Log Out
-                    </a>
+                    <button onclick="handleLogout()" class="glow-btn bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+  Log Out
+</button>
                 </div>
             </div>
 
@@ -202,14 +205,30 @@ body.loading {
   // Add fade-out class
   loader.classList.add('fade-out');
 
-  // Optional: Completely remove loader from DOM after fade-out
+  
   setTimeout(function () {
     loader.style.display = 'none';
     document.getElementById('content').style.display = 'block';
   }, 2000); // Matches the transition duration
 });
 
-
+function handleLogout() {
+ 
+  fetch('logout.php', {
+    method: 'GET',
+    credentials: 'include' 
+  })
+  .then(() => {
+    // After successful logout, redirect to index.php
+    window.location.href = 'index.php';
+    
+    window.close();
+  })
+  .catch(error => {
+    console.error('Logout failed:', error);
+    alert('Logout failed. Please try again.');
+  });
+}
 
     </script>
 </body>

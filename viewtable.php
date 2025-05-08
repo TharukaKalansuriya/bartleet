@@ -12,7 +12,7 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
     exit();
 }
 require_once 'database.php';
-require_once 'vendor/autoload.php'; // For TCPDF
+require_once 'vendor/autoload.php'; // For TCPDF 
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");

@@ -82,7 +82,7 @@ body.loading {
   </style>
 </head>
 <!-- body image-->
-<body class="min-h-screen font-sans bg-cover bg-no-repeat bg-center" style="background-image: linear-gradient(to left, rgba(72, 33, 33, 0.6),rgba(37, 32, 32, 0.76)), url('img/home.png');">
+<body class="min-h-screen font-sans bg-cover bg-no-repeat bg-center" style="background-image: linear-gradient(to left, rgba(24, 63, 45, 0.78),rgba(9, 8, 8, 0.81)), url('img/home.png');">
   <!-- Loader -->
   <div id="loader">
     <img src="img/loading.gif" alt="Loading...">
@@ -102,9 +102,9 @@ body.loading {
         <a href="https://www.bartleet.com" target="_blank" class="glow-btn2 bg-green-500 hover:bg-green-300 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
           Visit Website
         </a>
-        <a href="logout.php" target="_blank" class="glow-btn bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
-          Log Out
-        </a>
+        <button onclick="handleLogout()" class="glow-btn bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+  Log Out
+</button>
         
       </div>
     </div>
@@ -168,12 +168,28 @@ body.loading {
   // Add fade-out class
   loader.classList.add('fade-out');
 
-  // Optional: Completely remove loader from DOM after fade-out
+  
   setTimeout(function () {
     loader.style.display = 'none';
     document.getElementById('content').style.display = 'block';
-  }, 800); // Matches the transition duration
+  }, 800); 
 });
+function handleLogout() {
+  
+  fetch('logout.php', {
+    method: 'GET',
+    credentials: 'include' 
+  })
+  .then(() => {
+    // After successful logout, redirect to index.php
+    window.location.href = 'index.php';
+    window.close();
+  })
+  .catch(error => {
+    console.error('Logout failed:', error);
+    alert('Logout failed. Please try again.');
+  });
+}
    
   </script>
 
