@@ -1,4 +1,5 @@
 <?php
+//database connection
 require 'database.php';
 $db = new Database();
 $conn = $db->getConnection();

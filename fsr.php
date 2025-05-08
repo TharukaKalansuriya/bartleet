@@ -144,7 +144,7 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
             <td class="border px-2 py-1"><input type="number" class="w-full" /></td>
             <td class="border px-2 py-1"><input type="text" class="w-full" /></td>
           </tr>
-          <!-- More rows as needed -->
+         
         </tbody>
       </table>
     </div>

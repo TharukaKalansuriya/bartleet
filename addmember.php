@@ -13,7 +13,7 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
     header("Location: index.php");
     exit();
 }
-
+//database connection
 require_once 'database.php';
 
 $db = new Database();

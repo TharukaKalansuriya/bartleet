@@ -11,7 +11,6 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
     header("Location: index.php");
     exit();
 }
-session_start();
 require_once 'database.php';
 require_once 'vendor/autoload.php'; // For TCPDF
 
@@ -77,8 +76,8 @@ function generatePDF($tableName, $columns, $rows) {
     $colWidth = 190 / max($colCount, 1); 
     
     // Table header
-    $pdf->SetFillColor(255, 255, 0);
-    $pdf->SetTextColor(0);
+    $pdf->SetFillColor(255, 107, 53); // Match the primary color
+    $pdf->SetTextColor(255, 255, 255);
     $pdf->SetDrawColor(0, 0, 0);
     $pdf->SetLineWidth(0.3);
     
@@ -110,48 +109,131 @@ function generatePDF($tableName, $columns, $rows) {
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>View Table - <?php echo htmlspecialchars($tableName); ?></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Table - <?php echo htmlspecialchars($tableName); ?> - Craze Kicks</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --primary-hover: #FF8E63;
+            --secondary: #2E2E3A;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: url('img/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            transition: all 0.2s;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+        
+        .table-container {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-gradient {
+            background: linear-gradient(90deg, var(--primary) 0%, #FF8E63 100%);
+        }
+        
+        th {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .table-row-alt:nth-child(even) {
+            background-color: rgba(255, 107, 53, 0.05);
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-white p-6 min-h-screen">
-    <div class="flex justify-between items-start mb-4">
-        <a href="admindashboard.php" class="text-yellow-300 hover:text-yellow-500">&larr; Back to Dashboard</a>
-        <?php if (!empty($columns)): ?>
-            <form method="post" class="inline-block">
-                <button type="submit" name="generate_pdf" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-2 px-4 rounded">
-                    Download as PDF
-                </button>
-            </form>
-        <?php endif; ?>
-    </div>
-    
-    <h1 class="text-3xl font-bold mb-4 mt-2 text-yellow-400">Table: <?php echo htmlspecialchars($tableName); ?></h1>
+<body class="min-h-screen flex flex-col">
 
-    <div class="overflow-auto max-w-full bg-white text-black rounded-lg p-4 shadow-md">
-        <?php if (!empty($columns)): ?>
-            <table class="min-w-full table-auto border-collapse">
-                <thead class="bg-yellow-200">
-                    <tr>
-                        <?php foreach ($columns as $col): ?>
-                            <th class="border px-4 py-2"><?php echo htmlspecialchars($col); ?></th>
-                        <?php endforeach; ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($rows as $row): ?>
-                        <tr class="hover:bg-yellow-100">
-                            <?php foreach ($row as $cell): ?>
-                                <td class="border px-4 py-2"><?php echo htmlspecialchars($cell); ?></td>
+    <?php include "navbar.php" ?>
+
+    <div class="container mx-auto px-4 py-8 flex-grow">
+        <div class="glass-card rounded-xl p-8 text-white">
+            <div class="flex flex-col md:flex-row items-center justify-between mb-8">
+                <div>
+                    <h1 class="text-3xl md:text-4xl font-bold">Table: <?php echo htmlspecialchars($tableName); ?></h1>
+                    <p class="text-lg opacity-80 mt-2">Viewing table contents</p>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row gap-4 mt-6 md:mt-0">
+                    <a href="admindashboard.php" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-3 px-6 rounded-lg shadow text-center">
+                        <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+                    </a>
+                    
+                    <?php if (!empty($columns)): ?>
+                    <form method="post" class="inline-block">
+                        <button type="submit" name="generate_pdf" class="btn-primary text-white font-semibold py-3 px-6 rounded-lg shadow text-center">
+                            <i class="fas fa-file-pdf mr-2"></i> Download as PDF
+                        </button>
+                    </form>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <div class="table-container rounded-xl overflow-hidden">
+                <div class="header-gradient text-white px-6 py-4 flex justify-between items-center">
+                    <h2 class="text-xl font-bold">Table Content</h2>
+                    <?php if (!empty($columns)): ?>
+                    <div class="text-sm">
+                        <span class="bg-white bg-opacity-20 py-1 px-3 rounded-full"><?php echo count($rows); ?> Records</span>
+                    </div>
+                    <?php endif; ?>
+                </div>
+                
+                <?php if (!empty($columns)): ?>
+                <div class="overflow-x-auto">
+                    <table class="w-full table-auto text-gray-800">
+                        <thead>
+                            <tr>
+                                <?php foreach ($columns as $col): ?>
+                                <th class="py-3 px-4 text-left"><?php echo htmlspecialchars($col); ?></th>
+                                <?php endforeach; ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($rows as $row): ?>
+                            <tr class="table-row-alt hover:bg-gray-100 transition-colors">
+                                <?php foreach ($row as $cell): ?>
+                                <td class="py-3 px-4 border-t border-gray-200"><?php echo htmlspecialchars($cell); ?></td>
+                                <?php endforeach; ?>
+                            </tr>
                             <?php endforeach; ?>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            <p class="text-gray-600">No data found in the table.</p>
-        <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <?php else: ?>
+                <div class="text-center py-16 bg-white">
+                    <i class="fas fa-table text-gray-300 text-5xl mb-4"></i>
+                    <p class="text-gray-600">No data found in the table.</p>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
+
+    <footer class="text-center py-4 text-white bg-black bg-opacity-50">
+        <p>© <?= date('Y') ?> Craze Kicks Admin Dashboard</p>
+    </footer>
 </body>
 </html>

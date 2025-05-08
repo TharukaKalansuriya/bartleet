@@ -221,7 +221,8 @@ function selectFactory(facId, facName) {
     data: { facId: facId },
     dataType: 'json',
     success: function(data) {
-      console.log("Serial numbers response:", data); // Debug log
+      // Debug log
+      console.log("Serial numbers response:", data); 
       
       const serialList = $('#serialList');
       serialList.empty();
@@ -242,7 +243,7 @@ function selectFactory(facId, facName) {
         
         if (!serialNo) {
           console.warn("Found a serial record without SerialNo property:", serial);
-          return; // Skip this record
+          return; 
         }
         
         serialList.append(`
@@ -278,6 +279,7 @@ function selectFactory(facId, facName) {
         data: { teamId: teamId },
         dataType: 'json',
         success: function(data) {
+          
           // Highlight the factories this team works on
           $('#factoriesList li').removeClass('bg-red-300').addClass('bg-red-100');
           

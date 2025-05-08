@@ -12,7 +12,7 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
     header("Location: index.php");
     exit();
 }
-
+//database conection
 require_once 'database.php';
 
 $db = new Database();
@@ -144,6 +144,8 @@ $db->closeConnection();
       <div>
         <label class="block font-semibold text-gray-700">Service Person ID</label>
         <select name="ServicePersonId" id="ServicePersonId" class="w-full mt-1 p-3 border border-gray-300 rounded-xl">
+
+          <!--service person drop down-->
           <option value="">Select a Service Person</option>
           <?php
             mysqli_data_seek($membersList, 0);
@@ -154,7 +156,7 @@ $db->closeConnection();
         </select>
       </div>
 
-      <!--neeeeew-->
+      <!--Factories Dropdown-->
       <div>
         <label class="block font-semibold text-gray-700">Factory ID (FacId)</label>
         <select name="FacId" id="FacId" class="w-full mt-1 p-3 border border-gray-300 rounded-xl">
@@ -168,7 +170,8 @@ $db->closeConnection();
         </select>
       </div>
 
-
+      <!--button set-->
+      
       <div class="col-span-1 md:col-span-3 flex gap-4 mt-4">
         <button name="add" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-xl">Add</button>
         <button name="update" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-xl">Update</button>

@@ -12,7 +12,7 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
     header("Location: index.php");
     exit();
 }
-
+//database connection
 require_once 'database.php';
 
 $db = new Database();
@@ -150,6 +150,8 @@ while ($row = $result->fetch_assoc()) {
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <input type="text" name="FacName" id="FacName" placeholder="Factory Name" required class="border p-2 rounded w-full">
                 <input type="text" name="Location" id="Location" placeholder="Location" required class="border p-2 rounded w-full">
+                
+                <!--teams drop down-->
                 <div>
                     <label class="block font-semibold text-gray-700">Team ID</label>
                     <select name="TeamID" id="TeamID" class="w-full mt-1 p-3 border border-gray-300 rounded-xl">

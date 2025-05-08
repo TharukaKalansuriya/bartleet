@@ -78,7 +78,7 @@ while ($row = $result->fetch_assoc()) {
     <!-- Title -->
     <h3 class="text-2xl font-semibold text-red-700 mb-4">Existing Factories</h3>
 
-    <!-- Search Bar -->
+
     <!-- Search Bars -->
 <div class="flex flex-col md:flex-row gap-4 mb-4 w-full max-w-4xl">
     <input 

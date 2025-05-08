@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $servicePersonId = mysqli_real_escape_string($conn, $_POST['servicePersonId']);
     $date = mysqli_real_escape_string($conn, $_POST['date']);
     
-    // Generate a unique contract ID (you can modify this to suit your needs)
+
     $contractId = "MAINT-" . date("Ymd") . "-" . uniqid();
     
     // Insert new maintenance record
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 } else {
-    // If not POST request, redirect to maintenance page
+    
     header("Location: maintenance_update.php");
     exit();
 }

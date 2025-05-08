@@ -43,7 +43,6 @@ try {
     $whereClause = implode(" AND ", $whereConditions);
     error_log("WHERE clause: $whereClause");
     
-    // Get summary information - FIXED by not including maintenance status in GROUP BY
     $summarySQL = "
         SELECT 
             fsr.SerialNo,

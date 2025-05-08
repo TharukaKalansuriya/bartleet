@@ -55,18 +55,47 @@ $db->closeConnection();
     .neon-text {
       text-shadow: 0 0 5px  rgba(253, 89, 89, 0.46), 0 0 10px rgba(253, 71, 71, 0.4);
     }
+    #loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000; /* dark background or match your theme */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+/* Hidden state */
+#loader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Optional: Hide scrollbar during loading */
+body.loading {
+  overflow: hidden;
+}
   </style>
 </head>
 <!-- body image-->
 <body class="min-h-screen font-sans bg-cover bg-no-repeat bg-center" style="background-image: linear-gradient(to left, rgba(72, 33, 33, 0.6),rgba(37, 32, 32, 0.76)), url('img/home.png');">
+  <!-- Loader -->
+  <div id="loader">
+    <img src="img/loading.gif" alt="Loading...">
+  </div>
 
+  <!--nav bar-->
   <?php include 'navbar.php'; ?>
 
-  <!-- Hero Section -->
+ 
   <section class="px-6 md:px-16 py-16">
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
       <div>
-        <h1 class="text-5xl md:text-7xl font-extrabold neon-text font-[Orbitron]">BC–Agro Tronics</h1>
+        <h1 class="text-5xl md:text-7xl font-extrabold neon-text font-san-serif">BC–Agro Tronics</h1>
         <p class="text-xl md:text-3xl text-red-400 mt-2">Management Dashboard</p>
       </div>
       <div class="flex flex-col md:flex-row gap-4">
@@ -130,6 +159,22 @@ $db->closeConnection();
     for (const id in stats) {
       animateCount(id, stats[id]);
     }
+    
+         // Restore scrolling
+    window.addEventListener('load', function () {
+  document.body.classList.remove('loading'); 
+  const loader = document.getElementById('loader');
+
+  // Add fade-out class
+  loader.classList.add('fade-out');
+
+  // Optional: Completely remove loader from DOM after fade-out
+  setTimeout(function () {
+    loader.style.display = 'none';
+    document.getElementById('content').style.display = 'block';
+  }, 800); // Matches the transition duration
+});
+   
   </script>
 
   <?php include 'footer.php'; ?>

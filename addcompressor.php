@@ -1,8 +1,8 @@
 <?php
-
+//session
 session_start();
 
-// Define allowed roles
+//allowed roles
 $allowed_roles = ['admin', 'data_entry'];
 
 // Check if the user's role is not in the allowed roles
@@ -12,7 +12,7 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
     header("Location: index.php");
     exit();
 }
-
+//make connection
 require_once 'database.php';
 
 $db = new Database();
@@ -115,6 +115,8 @@ $db->closeConnection();
   <div class="max-w-6xl mx-auto bg-white p-8 rounded-xl shadow-xl">
     <h1 class="text-3xl font-bold text-red-600 mb-6 text-center">Manage Oil Compressors</h1>
 
+    <!--status section-->
+
     <?php if ($successMessage): ?>
       <div class="bg-green-100 text-green-700 px-4 py-3 rounded mb-4"><?= $successMessage ?></div>
     <?php endif; ?>
@@ -123,6 +125,7 @@ $db->closeConnection();
       <div class="bg-red-100 text-red-700 px-4 py-3 rounded mb-4"><?= $errorMessage ?></div>
     <?php endif; ?>
 
+      <!--data form-->
     <form method="POST" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
       <div>
         <label class="block font-semibold text-gray-700">Serial No</label>
@@ -149,7 +152,7 @@ $db->closeConnection();
         </select>
       </div>
 
-      <!--neeeeew-->
+      <!--factory dropdown-->
       <div>
         <label class="block font-semibold text-gray-700">Factory ID (FacId)</label>
         <select name="FacId" id="FacId" class="w-full mt-1 p-3 border border-gray-300 rounded-xl">
@@ -163,14 +166,15 @@ $db->closeConnection();
         </select>
       </div>
 
-
+      <!--button set-->
       <div class="col-span-1 md:col-span-3 flex gap-4 mt-4">
         <button name="add" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-6 rounded-xl">Add</button>
         <button name="update" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-6 rounded-xl">Update</button>
         <button name="delete" onclick="return confirm('Are you sure you want to delete this machine?');" class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-6 rounded-xl">Delete</button>
       </div>
     </form>
-
+    
+    <!--data table-->
     <div class="overflow-x-auto overflow-y-auto max-h-[400px] border rounded-xl shadow-inner">
       <table class="min-w-full table-auto text-sm text-left text-gray-700">
         <thead class="bg-red-200 text-red-800 sticky top-0">
