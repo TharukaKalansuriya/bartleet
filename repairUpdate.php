@@ -248,14 +248,42 @@ $db->closeConnection();
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Repair Update</title>
+  <title>FSR Input</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+  <style>
+    body {
+      background-image: linear-gradient(to left, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('img/background.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: right;
+    }
+    /* Semi-transparent input and textarea */
+    input[type="text"], input[type="date"], input[type="time"], input[type="file"], textarea, select {
+      background-color: rgba(255,255,255,0.6) !important;
+      /* Optional: for better readability */
+      color: #222;
+    }
+    /* Scrollable table body for 4 rows */
+    .fsr-table-scroll tbody {
+      display: block;
+      max-height: 220px; 
+      overflow-y: auto;
+    }
+    .fsr-table-scroll thead, .fsr-table-scroll tbody tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed;
+    }
+    .fsr-table-scroll thead {
+      width: calc(100% - 1em);
+    }
+  </style>
 </head>
-<body class="min-h-screen font-sans bg-cover bg-no-repeat bg-right" style="background-image: linear-gradient(to left, rgba(255, 128, 128, 0.05),rgba(211, 134, 119, 0.44)), url('img/background.jpg');">
-
+<body class="min-h-screen font-sans">
   <!-- Back Button - Top Right Corner -->
   <div class="absolute top-10 right-10 z-50">
     <img 
@@ -272,12 +300,12 @@ $db->closeConnection();
       <img src="img/logo.png" alt="Logo" class="w-28 h-20 md:w-32 md:h-24 object-contain" />
       <div>
         <h1 class="text-4xl md:text-5xl font-extrabold text-red-700">BC–Agro Tronics</h1>
-        <p class="text-xl text-red-400">Repair Update</p>
+        <p class="text-xl text-red-400">FSR Input</p>
       </div>
     </div>
   </section>
 
-  <div class="max-w-6xl mx-auto bg-white p-8 rounded-xl shadow-xl mb-10">
+  <div class="max-w-7xl mx-auto bg-white/60 p-8 rounded-xl shadow-xl mb-10" style="max-height: 70vh; overflow-y: auto;">
     <h1 class="text-3xl font-bold text-red-600 mb-6 text-center">Field Service Report (FSR)</h1>
 
     <?php if ($successMessage): ?>
@@ -291,13 +319,10 @@ $db->closeConnection();
     <form method="POST" enctype="multipart/form-data" class="space-y-6">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <!-- Basic Information Section -->
+        
         <div>
-          <label class="block font-semibold text-gray-700">Contract Id</label>
-          <input type="text" name="ContractId" id="ContractId" required class="w-full mt-1 p-3 border border-gray-300 rounded-xl" />
-        </div>
-        <div>
-          <label class="block font-semibold text-gray-700">FSR No</label>
-          <input type="text" name="FSRNo" id="FSRNo" required class="w-full mt-1 p-3 border border-gray-300 rounded-xl" />
+          <label class="block  font-semibold text-gray-700">FSR No</label>
+          <input type="text" name="FSRNo" id="FSRNo" required class="w-full mt-1 p-3 border  border-gray-300 rounded-xl" />
         </div>
         <div>
           <label class="block font-semibold text-gray-700">Factory</label>
@@ -450,8 +475,8 @@ $db->closeConnection();
     <!-- FSR Records Table -->
     <div class="mt-10">
       <h2 class="text-2xl font-bold text-red-600 mb-4">FSR Records</h2>
-      <div class="overflow-x-auto overflow-y-auto max-h-[400px] border rounded-xl shadow-inner">
-        <table class="min-w-full table-auto text-sm text-left text-gray-700">
+      <div class="overflow-x-auto border rounded-xl shadow-inner">
+        <table class="min-w-full table-auto text-sm text-left text-gray-700 fsr-table-scroll">
           <thead class="bg-red-200 text-red-800 sticky top-0">
             <tr>
               <th class="px-4 py-2">FSR No</th>

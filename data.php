@@ -1,4 +1,4 @@
-<?php session_start();  // Define allowed roles $allowed_roles = ['admin', 'manager'];  // Check if the user's role is not in the allowed roles if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {          // Redirect to the login page if not authorized     header("Location: index.php");     exit(); }  ?> 
+<?php session_start();?> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,10 +28,34 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
       transform: translateY(-5px);
     }
+     
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
   </style>
 </head>
 <body class="min-h-screen bg-cover bg-fixed bg-center" style="background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)), url('img/background.jpg');">
-  
+  <!-- Loader with fallback -->
+  <div id="loader">
+    <img src="img/loading.gif" alt="Loading..." class="pulse">
+    <noscript>
+      <style>
+        #loader { display: none; }
+        #content { display: block !important; }
+      </style>
+    </noscript>
+  </div>
+
   <!-- Back Button with Animation -->
   <div class="fixed top-8 right-8 z-50">
     <button onclick="history.back()" class="bg-white/10 backdrop-blur-md p-3 rounded-full shadow-lg hover:bg-white/20 transition-all duration-300">
@@ -121,30 +145,30 @@
             </div>
           </div>
         </a>
-
-        <a href="viewmachine.php" class="menu-card group bg-gradient-to-r from-red-800/80 to-red-600/80 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden">
+    <!--
+        <a href="" class="menu-card group bg-gradient-to-r from-red-800/80 to-red-600/80 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden">
           <div class="p-6 flex items-center gap-4">
             <div class="bg-white/10 p-3 rounded-full">
               <i class="fas fa-sort-amount-down text-white text-xl"></i>
             </div>
             <div>
-              <h3 class="text-white font-semibold text-lg group-hover:text-red-200 transition-colors">VIEW COLOR SORTERS</h3>
+              <h3 class="text-white font-semibold text-lg group-hover:text-red-200 transition-colors">Null</h3>
               <div class="w-0 group-hover:w-full h-0.5 bg-red-300 transition-all duration-300"></div>
             </div>
           </div>
-        </a>
+        </a> 
 
-        <a href="viewcompressors.php" class="menu-card group bg-gradient-to-r from-red-800/80 to-red-600/80 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden">
+        <a href="" class="menu-card group bg-gradient-to-r from-red-800/80 to-red-600/80 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden">
           <div class="p-6 flex items-center gap-4">
             <div class="bg-white/10 p-3 rounded-full">
               <i class="fas fa-compress-arrows-alt text-white text-xl"></i>
             </div>
             <div>
-              <h3 class="text-white font-semibold text-lg group-hover:text-red-200 transition-colors">VIEW OIL COMPRESSORS</h3>
+              <h3 class="text-white font-semibold text-lg group-hover:text-red-200 transition-colors">Null</h3>
               <div class="w-0 group-hover:w-full h-0.5 bg-red-300 transition-all duration-300"></div>
             </div>
           </div>
-        </a>
+        </a> -->
 
         <a href="factoryview.php" class="menu-card group bg-gradient-to-r from-red-800/80 to-red-600/80 backdrop-blur-sm rounded-xl shadow-xl overflow-hidden">
           <div class="p-6 flex items-center gap-4">
@@ -174,5 +198,36 @@
   </section>
 
   <?php include "footer.php" ?>
+  
+  <script>
+     // Make sure the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      // Force remove the loader after 3 seconds as a fallback
+      setTimeout(function() {
+        const loader = document.getElementById('loader');
+        if (loader) {
+          loader.style.display = 'none';
+        }
+        // Ensure content is visible
+        document.getElementById('content').style.display = 'block';
+      })});
+    // Loader handling
+    window.addEventListener('load', function() {
+      document.body.classList.remove('loading');
+      const loader = document.getElementById('loader');
+      
+      // Add fade-out class to loader
+      loader.classList.add('fade-out');
+      
+      // Display content after loader fades
+      setTimeout(function() {
+        loader.style.display = 'none';
+        // Content is already displayed - no need to change display property
+        
+        // Trigger animations for visible elements
+        document.querySelector('.card-grid').classList.add('visible');
+      }, 800);
+    });
+    </script>
 </body>
 </html>

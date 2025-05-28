@@ -55,7 +55,7 @@ $personResult = $conn->query($personSql);
       background-color: rgba(0,0,0,0.5);
     }
     .modal-content {
-      background-color: white;
+      background-color: rgba(255, 255, 255, 0.22);
       margin: 10% auto;
       padding: 20px;
       border-radius: 8px;
@@ -64,21 +64,33 @@ $personResult = $conn->query($personSql);
     }
   </style>
 </head>
-<body class="min-h-screen font-sans">
+<body class="min-h-screen font-sans bg-cover bg-no-repeat bg-right" style="background-image: linear-gradient(to left, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('img/background.jpg');">
 
   <?php include "navbar.php" ?>
+
+   <!-- Back Button - Top Right Corner -->
+   <div class="absolute top-10 right-10 z-50 m-20">
+  <img 
+    src="img/back.png" 
+    onclick="history.back()" 
+    alt="Back" 
+    class="w-14 h-14 cursor-pointer transition duration-400 ease-in-out transform hover:scale-110 hover:rotate-[-20deg] active:scale-95 active:rotate-[5deg]" 
+  />
+  </div>
+
+
   <h1 class="text-4xl font-bold text-red-600 text-center p-6 mb-6">Maintenance Management Panel</h1>
 
   <!-- Main Layout -->
   <div class="flex space-x-4 px-4">
     
     <!-- Left: Filters -->
-    <div class="w-1/5 bg-white shadow-md rounded-lg p-4">
+    <div class="w-1/5 bg-white/20 backdrop-blur-md border border-white/20 rounded-xl p-6 mb-8">
       <h2 class="text-xl font-semibold text-red-500 mb-4">Filters</h2>
       
       <!-- Locations Filter -->
       <div class="mb-4">
-        <h3 class="font-medium text-gray-700 mb-2">Locations</h3>
+        <h3 class="font-medium text-gray-200 mb-2">Locations</h3>
         <select id="locationFilter" class="w-full p-2 border border-red-200 rounded focus:outline-none focus:ring-2 focus:ring-red-300">
           <option value="">All Locations</option>
           <?php while ($loc = $locationResult->fetch_assoc()): ?>
@@ -89,7 +101,7 @@ $personResult = $conn->query($personSql);
       
       <!-- Factories Filter -->
       <div class="mb-4">
-        <h3 class="font-medium text-gray-700 mb-2">Factories</h3>
+        <h3 class="font-medium text-gray-200 mb-2">Factories</h3>
         <select id="factoryFilter" class="w-full p-2 border border-red-200 rounded focus:outline-none focus:ring-2 focus:ring-red-300">
           <option value="">All Factories</option>
           <?php while ($factory = $factoryResult->fetch_assoc()): ?>
@@ -100,7 +112,7 @@ $personResult = $conn->query($personSql);
       
       <!-- Status Filter -->
       <div class="mb-4">
-        <h3 class="font-medium text-gray-700 mb-2">Status</h3>
+        <h3 class="font-medium text-gray-200 mb-2">Status</h3>
         <select id="statusFilter" class="w-full p-2 border border-red-200 rounded focus:outline-none focus:ring-2 focus:ring-red-300">
           <option value="">All Statuses</option>
           <?php foreach ($statusOptions as $status): ?>
@@ -111,7 +123,7 @@ $personResult = $conn->query($personSql);
       
       <!-- Date Range Filter -->
       <div class="mb-4">
-        <h3 class="font-medium text-gray-700 mb-2">Date Range</h3>
+        <h3 class="font-medium text-gray-200 mb-2">Date Range</h3>
         <input type="date" id="startDate" class="w-full p-2 border border-red-200 rounded mb-2 focus:outline-none focus:ring-2 focus:ring-red-300" placeholder="Start Date">
         <input type="date" id="endDate" class="w-full p-2 border border-red-200 rounded focus:outline-none focus:ring-2 focus:ring-red-300" placeholder="End Date">
       </div>
@@ -121,7 +133,7 @@ $personResult = $conn->query($personSql);
     </div>
 
     <!-- Center: Table -->
-    <div class="w-4/5 bg-white shadow-md rounded-lg p-4 flex flex-col">
+    <div class="w-4/5 bg-white/30 backdrop-blur-md border border-white/20 rounded-xl p-6 mb-8">
       <div class="flex justify-between items-center mb-4">
         <h2 class="text-xl font-semibold text-red-500">Maintenance Records</h2>
         <div class="flex space-x-2">
@@ -144,7 +156,7 @@ $personResult = $conn->query($personSql);
               <th class="p-3">Actions</th>
             </tr>
           </thead>
-          <tbody id="maintenanceTableBody" class="text-gray-800">
+          <tbody id="maintenanceTableBody" class="text-gray-200">
             <?php if ($result && $result->num_rows > 0): ?>
               <?php while ($row = $result->fetch_assoc()): ?>
                 <tr data-location="<?= htmlspecialchars($row['Location']) ?>" 

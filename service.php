@@ -94,7 +94,7 @@ function getRowClass($serviceDate, $currentDate) {
   <title>All Service Records</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="min-h-screen font-sans bg-cover bg-no-repeat bg-right" style="background-image: linear-gradient(to left, rgba(255, 128, 128, 0.05),rgba(211, 134, 119, 0.44)), url('img/background.jpg');">
+<body class="min-h-screen font-sans bg-cover bg-no-repeat bg-right" style="background-image: linear-gradient(to left, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('img/background.jpg');">
 
   <!-- Back Button -->
   <div class="absolute top-10 right-10 z-50">
@@ -117,7 +117,7 @@ function getRowClass($serviceDate, $currentDate) {
     </div>
   </section>
 
-  <div class="max-w-7xl mx-auto bg-white shadow-xl rounded-xl p-6">
+  <div class="max-w-7xl mx-auto backdrop-blur-md bg-white/30 shadow-xl rounded-xl p-6">
     <h1 class="text-2xl font-bold mb-6 text-center">All Service Records</h1>
 
     <!-- Search and filter bar -->

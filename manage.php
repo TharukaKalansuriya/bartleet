@@ -93,7 +93,7 @@
               <i class="fas fa-tools text-white text-xl"></i>
             </div>
             <div>
-              <h3 class="text-white font-semibold text-lg group-hover:text-red-200 transition-colors">Add Machines</h3>
+              <h3 class="text-white font-semibold text-lg group-hover:text-red-200 transition-colors">Add Color Sorter</h3>
               <div class="w-0 group-hover:w-full h-0.5 bg-red-300 transition-all duration-300"></div>
             </div>
           </div>

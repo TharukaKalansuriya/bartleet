@@ -43,7 +43,7 @@ $db->closeConnection();
       box-shadow: 0 0 15px rgba(255, 0, 0, 0.75), 0 0 30px rgba(255, 0, 0, 0.4);
     }
     .glow-btn2 {
-      box-shadow: 0 0 15px rgba(145, 255, 0, 0.57), 0 0 30px rgba(178, 245, 22, 0.51);
+      box-shadow: 0 0 15px rgba(145, 255, 0, 0.3), 0 0 30px rgba(178, 245, 22, 0.31);
     }
     .neon-text {
       text-shadow: 0 0 5px rgba(253, 89, 89, 0.46), 0 0 10px rgba(253, 71, 71, 0.4);
@@ -105,7 +105,7 @@ $db->closeConnection();
       <div class="glass rounded-2xl p-8 shadow-lg data-entry-card">
         <h2 class="text-2xl font-bold text-white mb-4">Data Management</h2>
         <p class="text-gray-300 mb-6">Access the data entry forms to add, edit, or delete records in the system.</p>
-        <a href="manage.php" class="glow-btn2 bg-green-500 hover:bg-green-400 text-white font-bold py-3 px-6 rounded-lg inline-block transition duration-300">
+        <a href="manage.php" class="glow-btn2 bg-green-600 hover:bg-green-400 text-white font-bold py-3 px-6 rounded-lg inline-block transition duration-300">
           Go to Data Entry
         </a>
       </div>

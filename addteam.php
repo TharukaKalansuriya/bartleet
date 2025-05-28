@@ -4,7 +4,7 @@
 session_start();
 
 // Define allowed roles
-$allowed_roles = ['admin', 'data_entry'];
+$allowed_roles = ['admin', 'repair'];
 
 // Check if the user's role is not in the allowed roles
 if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {

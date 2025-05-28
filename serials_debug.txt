@@ -607,3 +607,185 @@
 
 2025-05-08 10:54:29 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=3
 2025-05-08 10:54:29 - Found 2 serial numbers
+2025-05-09 13:16:32 - Request params: Array
+(
+    [facId] => 3
+)
+
+2025-05-09 13:16:32 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=3
+2025-05-09 13:16:32 - Found 2 serial numbers
+2025-05-22 08:31:27 - Request params: Array
+(
+    [facId] => 31
+)
+
+2025-05-22 08:31:27 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=31
+2025-05-22 08:31:27 - Found 1 serial numbers
+2025-05-22 10:50:13 - Request params: Array
+(
+    [facId] => 197
+)
+
+2025-05-22 10:50:13 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=197
+2025-05-22 10:50:13 - Found 0 serial numbers
+2025-05-22 10:50:17 - Request params: Array
+(
+    [facId] => 128
+)
+
+2025-05-22 10:50:17 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=128
+2025-05-22 10:50:17 - Found 0 serial numbers
+2025-05-22 10:50:18 - Request params: Array
+(
+    [facId] => 81
+)
+
+2025-05-22 10:50:18 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=81
+2025-05-22 10:50:18 - Found 0 serial numbers
+2025-05-22 10:50:19 - Request params: Array
+(
+    [facId] => 198
+)
+
+2025-05-22 10:50:19 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=198
+2025-05-22 10:50:19 - Found 0 serial numbers
+2025-05-22 10:50:25 - Request params: Array
+(
+    [facId] => 3
+)
+
+2025-05-22 10:50:25 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=3
+2025-05-22 10:50:25 - Found 2 serial numbers
+2025-05-23 06:35:41 - Request params: Array
+(
+    [facId] => 197
+)
+
+2025-05-23 06:35:41 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=197
+2025-05-23 06:35:41 - Found 0 serial numbers
+2025-05-23 06:35:42 - Request params: Array
+(
+    [facId] => 128
+)
+
+2025-05-23 06:35:42 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=128
+2025-05-23 06:35:42 - Found 0 serial numbers
+2025-05-23 06:35:45 - Request params: Array
+(
+    [facId] => 128
+)
+
+2025-05-23 06:35:45 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=128
+2025-05-23 06:35:45 - Found 0 serial numbers
+2025-05-23 06:35:46 - Request params: Array
+(
+    [facId] => 197
+)
+
+2025-05-23 06:35:46 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=197
+2025-05-23 06:35:46 - Found 0 serial numbers
+2025-05-23 06:35:50 - Request params: Array
+(
+    [facId] => 197
+)
+
+2025-05-23 06:35:50 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=197
+2025-05-23 06:35:50 - Found 0 serial numbers
+2025-05-23 06:35:50 - Request params: Array
+(
+    [facId] => 81
+)
+
+2025-05-23 06:35:50 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=81
+2025-05-23 06:35:50 - Found 0 serial numbers
+2025-05-23 06:35:50 - Request params: Array
+(
+    [facId] => 128
+)
+
+2025-05-23 06:35:50 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=128
+2025-05-23 06:35:50 - Found 0 serial numbers
+2025-05-23 06:35:51 - Request params: Array
+(
+    [facId] => 197
+)
+
+2025-05-23 06:35:51 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=197
+2025-05-23 06:35:51 - Found 0 serial numbers
+2025-05-23 06:35:51 - Request params: Array
+(
+    [facId] => 198
+)
+
+2025-05-23 06:35:51 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=198
+2025-05-23 06:35:51 - Found 0 serial numbers
+2025-05-23 06:48:17 - Request params: Array
+(
+    [facId] => 9
+)
+
+2025-05-23 06:48:17 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=9
+2025-05-23 06:48:17 - Found 0 serial numbers
+2025-05-23 06:48:19 - Request params: Array
+(
+    [facId] => 3
+)
+
+2025-05-23 06:48:19 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=3
+2025-05-23 06:48:19 - Found 2 serial numbers
+2025-05-23 06:48:41 - Request params: Array
+(
+    [facId] => 129
+)
+
+2025-05-23 06:48:41 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=129
+2025-05-23 06:48:41 - Found 0 serial numbers
+2025-05-23 06:48:42 - Request params: Array
+(
+    [facId] => 128
+)
+
+2025-05-23 06:48:42 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=128
+2025-05-23 06:48:42 - Found 0 serial numbers
+2025-05-23 06:59:07 - Request params: Array
+(
+    [facId] => 3
+)
+
+2025-05-23 06:59:07 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=3
+2025-05-23 06:59:07 - Found 2 serial numbers
+2025-05-26 06:01:43 - Request params: Array
+(
+    [facId] => 6
+)
+
+2025-05-26 06:01:43 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=6
+2025-05-26 06:01:43 - Found 0 serial numbers
+2025-05-26 06:01:44 - Request params: Array
+(
+    [facId] => 3
+)
+
+2025-05-26 06:01:44 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=3
+2025-05-26 06:01:44 - Found 2 serial numbers
+2025-05-26 06:02:43 - Request params: Array
+(
+    [facId] => 3
+)
+
+2025-05-26 06:02:43 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=3
+2025-05-26 06:02:43 - Found 2 serial numbers
+2025-05-26 07:52:32 - Request params: Array
+(
+    [facId] => 3
+)
+
+2025-05-26 07:52:32 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=3
+2025-05-26 07:52:32 - Found 2 serial numbers
+2025-05-27 08:45:25 - Request params: Array
+(
+    [facId] => 6
+)
+
+2025-05-27 08:45:25 - SQL: SELECT DISTINCT SerialNo FROM fsr WHERE FacId = ? ORDER BY SerialNo with facId=6
+2025-05-27 08:45:25 - Found 1 serial numbers

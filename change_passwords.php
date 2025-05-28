@@ -1,15 +1,19 @@
 <?php
 session_start();
 
-// Check if the user is logged in as 'admin'
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    // Redirect to the login page if not logged in as admin
+// Define allowed roles
+$allowed_roles = ['admin', 'repair'];
+
+// Check if the user's role is not in the allowed roles
+if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    
+    // Redirect to the login page if not authorized
     header("Location: index.php");
     exit();
 }
 
 // Define the roles that can have password changes
-$roles = ['admin', 'manager', 'data_entry'];
+$roles = ['repair','admin', 'manager', 'data_entry'];
 
 // Define file path for password storage
 $passwordFile = 'rolepasswords.php';
@@ -21,6 +25,7 @@ $errorMessage = '';
 // Check if the password file exists, if not create it with default passwords
 if (!file_exists($passwordFile)) {
     $defaultPasswords = [
+         'repair' => '922470',
         'admin' => 'admin',
         'manager' => 'manager',
         'data_entry' => 'data',

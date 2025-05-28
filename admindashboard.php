@@ -1,9 +1,13 @@
 <?php
 session_start();
 
-// Check if the user is logged in as 'admin'
-if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-    // Redirect to the login page if not logged in as admin
+// Define allowed roles
+$allowed_roles = ['admin', 'repair'];
+
+// Check if the user's role is not in the allowed roles
+if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
+    
+    // Redirect to the login page if not authorized
     header("Location: index.php");
     exit();
 }
@@ -121,7 +125,7 @@ body.loading {
                     <a href="manage.php" class="btn-primary text-white font-semibold py-3 px-6 rounded-lg shadow text-center">
                         <i class="fas fa-database mr-2"></i> Modify Data
                     </a>
-                    <button onclick="handleLogout()" class="glow-btn bg-red-600 hover:bg-red-500 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
+                    <button onclick="handleLogout()" class="glow-btn bg-orange-600 hover:bg-red-500 text-white font-bold py-3 px-6 rounded-lg transition duration-300">
   Log Out
 </button>
                 </div>

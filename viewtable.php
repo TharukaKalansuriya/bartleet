@@ -48,6 +48,12 @@ if (isset($_POST['generate_pdf']) && !empty($tableName)) {
     exit();
 }
 
+// Handle Excel generation if requested
+if (isset($_POST['generate_excel']) && !empty($tableName)) {
+    generateExcel($tableName, $columns, $rows);
+    exit();
+}
+
 function generatePDF($tableName, $columns, $rows) {
     // Create new PDF document
     $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -106,6 +112,60 @@ function generatePDF($tableName, $columns, $rows) {
     $pdf->Output($tableName . '_export.pdf', 'D');
 }
 
+function generateExcel($tableName, $columns, $rows) {
+    // Set headers for Excel download
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment; filename="' . $tableName . '_export.xls"');
+    header('Pragma: no-cache');
+    header('Expires: 0');
+    
+    // Start the HTML table
+    echo '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">';
+    echo '<head>';
+    echo '<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">';
+    echo '<!--[if gte mso 9]><xml>';
+    echo '<x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet>';
+    echo '<x:Name>' . $tableName . '</x:Name>';
+    echo '<x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions>';
+    echo '</x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook>';
+    echo '</xml><![endif]-->';
+    echo '<style>';
+    echo 'td, th { border: 1px solid #000000; }';
+    echo 'th { background-color: #FF6B35; color: white; font-weight: bold; }';
+    echo '.table-row-alt:nth-child(even) { background-color: #F5F5F5; }';
+    echo '</style>';
+    echo '</head>';
+    echo '<body>';
+    
+    echo '<table border="1">';
+    
+    // Add header row
+    echo '<tr>';
+    foreach ($columns as $column) {
+        echo '<th>' . htmlspecialchars($column) . '</th>';
+    }
+    echo '</tr>';
+    
+    // Add data rows
+    $rowNum = 0;
+    foreach ($rows as $row) {
+        $rowClass = ($rowNum % 2 == 0) ? '' : 'table-row-alt';
+        echo '<tr class="' . $rowClass . '">';
+        foreach ($row as $cell) {
+            echo '<td>' . htmlspecialchars($cell) . '</td>';
+        }
+        echo '</tr>';
+        $rowNum++;
+    }
+    
+    // Close table and HTML
+    echo '</table>';
+    echo '</body>';
+    echo '</html>';
+    
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -145,6 +205,15 @@ function generatePDF($tableName, $columns, $rows) {
             background-color: var(--primary-hover);
         }
         
+        .btn-excel {
+            background-color: #1D6F42;
+            transition: all 0.2s;
+        }
+        
+        .btn-excel:hover {
+            background-color: #27864F;
+        }
+        
         .table-container {
             background: rgba(255, 255, 255, 0.9);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -182,11 +251,18 @@ function generatePDF($tableName, $columns, $rows) {
                     </a>
                     
                     <?php if (!empty($columns)): ?>
-                    <form method="post" class="inline-block">
-                        <button type="submit" name="generate_pdf" class="btn-primary text-white font-semibold py-3 px-6 rounded-lg shadow text-center">
-                            <i class="fas fa-file-pdf mr-2"></i> Download as PDF
-                        </button>
-                    </form>
+                    <div class="flex gap-2">
+                        <form method="post" class="inline-block">
+                            <button type="submit" name="generate_pdf" class="btn-primary text-white font-semibold py-3 px-6 rounded-lg shadow text-center">
+                                <i class="fas fa-file-pdf mr-2"></i> Download PDF
+                            </button>
+                        </form>
+                        <form method="post" class="inline-block">
+                            <button type="submit" name="generate_excel" class="btn-excel text-white font-semibold py-3 px-6 rounded-lg shadow text-center">
+                                <i class="fas fa-file-excel mr-2"></i> Download Excel
+                            </button>
+                        </form>
+                    </div>
                     <?php endif; ?>
                 </div>
             </div>

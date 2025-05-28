@@ -49,7 +49,7 @@ while ($row = $result->fetch_assoc()) {
         }
     </style>
 </head>
-<body class="min-h-screen font-sans">
+<body class="min-h-screen font-sans bg-cover bg-no-repeat bg-right" style="background-image: linear-gradient(to left, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)), url('img/background.jpg');">
 
 <!-- Back Button -->
 <div class="absolute top-10 right-10 z-50">

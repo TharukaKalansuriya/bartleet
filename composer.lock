@@ -54,6 +54,7 @@
                     "role": "lead"
                 }
             ],
+            
             "description": "TCPDF is a PHP class for generating PDF documents and barcodes.",
             "homepage": "http://www.tcpdf.org/",
             "keywords": [
