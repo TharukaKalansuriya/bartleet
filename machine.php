@@ -2,7 +2,7 @@
 session_start();
 
 // Define allowed roles
-$allowed_roles = ['admin', 'manager'];
+$allowed_roles = ['repair','admin', 'manager'];
 
 // Check if the user's role is not in the allowed roles
 if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
@@ -300,7 +300,6 @@ $db->closeConnection();
                 </button>
             </div>
             <div id="machineDetails" class="space-y-3">
-                <!-- Details will be populated by JavaScript -->
             </div>
         </div>
     </div>
@@ -427,7 +426,7 @@ $db->closeConnection();
 
             factoryOptions.forEach(option => {
                 if (option.value === '') {
-                    option.style.display = 'block'; // Always show "All Factories"
+                    option.style.display = 'block'; 
                 } else {
                     const optionTeam = option.dataset.team;
                     option.style.display = (!selectedTeam || optionTeam === selectedTeam) ? 'block' : 'none';

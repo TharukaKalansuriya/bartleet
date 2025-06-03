@@ -2,7 +2,7 @@
 session_start();
 
 // Define allowed roles
-$allowed_roles = ['admin'];
+$allowed_roles = ['repair','admin'];
 
 // Check if the user's role is not in the allowed roles
 if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
@@ -12,7 +12,7 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
     exit();
 }
 require_once 'database.php';
-require_once 'vendor/autoload.php'; // For TCPDF 
+require_once 'vendor/autoload.php'; 
 
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     header("Location: login.php");
@@ -82,7 +82,7 @@ function generatePDF($tableName, $columns, $rows) {
     $colWidth = 190 / max($colCount, 1); 
     
     // Table header
-    $pdf->SetFillColor(255, 107, 53); // Match the primary color
+    $pdf->SetFillColor(255, 107, 53); 
     $pdf->SetTextColor(255, 255, 255);
     $pdf->SetDrawColor(0, 0, 0);
     $pdf->SetLineWidth(0.3);

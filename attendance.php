@@ -89,7 +89,7 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
         <!-- Dashboard Content -->
         <div id="dashboardContent" class="hidden">
             <!-- Stats Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6">
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
@@ -102,6 +102,22 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
                         <div class="ml-4">
                             <p class="text-sm font-medium text-white/80">Working Days</p>
                             <p id="workingDays" class="text-3xl font-bold text-white">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-10 h-10 bg-orange-500/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-orange-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-white/80">On Call</p>
+                            <p id="onCallDays" class="text-3xl font-bold text-white">0</p>
                         </div>
                     </div>
                 </div>
@@ -249,10 +265,10 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
                         return;
                     }
 
-                    const total = data.working + data.leaves;
-                    const rate = total > 0 ? Math.round((data.working / total) * 100) : 0;
+                    const total = data.working + data.leaves + (data.oncall || 0);
+                    const rate = total > 0 ? Math.round(((data.working + (data.oncall || 0)) / total) * 100) : 0;
 
-                    updateStats(data.working, data.leaves, total, rate);
+                    updateStats(data.working, data.oncall || 0, data.leaves, total, rate);
                     updateCurrentChart(data, `${getMonthName(month)} ${year}`);
                     
                     // Load yearly data for second chart
@@ -278,10 +294,10 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
                         return;
                     }
 
-                    const total = data.working + data.leaves;
-                    const rate = total > 0 ? Math.round((data.working / total) * 100) : 0;
+                    const total = data.working + data.leaves + (data.oncall || 0);
+                    const rate = total > 0 ? Math.round(((data.working + (data.oncall || 0)) / total) * 100) : 0;
 
-                    updateStats(data.working, data.leaves, total, rate);
+                    updateStats(data.working, data.oncall || 0, data.leaves, total, rate);
                     updateCurrentChart(data, `Year ${year}`);
                     
                     // Load monthly breakdown for second chart
@@ -299,6 +315,7 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
             const monthlyPromises = [];
             const monthlyData = {
                 working: new Array(12).fill(0),
+                oncall: new Array(12).fill(0),
                 leaves: new Array(12).fill(0)
             };
 
@@ -314,6 +331,7 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
                         .then(data => {
                             if (!data.error) {
                                 monthlyData.working[month - 1] = data.working;
+                                monthlyData.oncall[month - 1] = data.oncall || 0;
                                 monthlyData.leaves[month - 1] = data.leaves;
                             }
                         })
@@ -325,8 +343,9 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
             });
         }
 
-        function updateStats(working, leaves, total, rate) {
+        function updateStats(working, oncall, leaves, total, rate) {
             document.getElementById('workingDays').textContent = working;
+            document.getElementById('onCallDays').textContent = oncall;
             document.getElementById('leaveDays').textContent = leaves;
             document.getElementById('totalDays').textContent = total;
             document.getElementById('attendanceRate').textContent = rate + '%';
@@ -344,10 +363,10 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
             currentChart = new Chart(ctx, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Working Days', 'Leave Days'],
+                    labels: ['Working Days', 'On Call', 'Leave Days'],
                     datasets: [{
-                        data: [data.working, data.leaves],
-                        backgroundColor: ['#10B981', '#EF4444'],
+                        data: [data.working, data.oncall || 0, data.leaves],
+                        backgroundColor: ['#10B981', '#F97316', '#EF4444'],
                         borderWidth: 0
                     }]
                 },
@@ -387,6 +406,11 @@ if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
                             label: 'Working Days',
                             data: yearlyData.working,
                             backgroundColor: '#10B981'
+                        },
+                        {
+                            label: 'On Call',
+                            data: yearlyData.oncall,
+                            backgroundColor: '#F97316'
                         },
                         {
                             label: 'Leave Days',

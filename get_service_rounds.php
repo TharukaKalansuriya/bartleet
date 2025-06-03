@@ -1,5 +1,4 @@
 <?php
-// get_service_rounds.php
 require_once 'database.php';
 
 header('Content-Type: application/json');
@@ -7,7 +6,6 @@ header('Content-Type: application/json');
 $db = new Database();
 $conn = $db->getConnection();
 
-// Add logging for debugging
 error_log("Service round request received");
 
 $serialNo = isset($_GET['serialNo']) ? $_GET['serialNo'] : '';

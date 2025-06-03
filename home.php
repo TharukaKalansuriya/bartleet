@@ -3,13 +3,13 @@
 session_start();
 
 // Define allowed roles
-$allowed_roles = ['admin', 'manager'];
+$allowed_roles = ['repair','admin', 'manager'];
 
 // Check if the user's role is not in the allowed roles
 if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
-    
     // Redirect to the login page if not authorized
     header("Location: index.php");
+    session_unset();
     exit();
 }
 
@@ -265,7 +265,7 @@ $db->closeConnection();
    
 
   <!-- Content container -->
-  <div id="content" style="display: block;"><!-- Changed from display: none to block -->
+  <div id="content" style="display: block;">
     <!--nav bar-->
     <?php include 'navbar.php'; ?>
 
@@ -392,14 +392,12 @@ $db->closeConnection();
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
             
-            // If it's the card grid, start the counter animations
+           
             if (entry.target.classList.contains('card-grid')) {
               for (const id in stats) {
                 animateCount(id, stats[id]);
               }
             }
-            
-            // For other fade-in elements
             if (entry.target.style.opacity === "0") {
               entry.target.style.opacity = "1";
             }
@@ -429,7 +427,7 @@ $db->closeConnection();
       // Display content after loader fades
       setTimeout(function() {
         loader.style.display = 'none';
-        // Content is already displayed - no need to change display property
+        
         
         // Trigger animations for visible elements
         document.querySelector('.card-grid').classList.add('visible');
@@ -442,7 +440,7 @@ $db->closeConnection();
         credentials: 'include'
       })
       .then(() => {
-        // Add a transition effect before redirect
+     
         document.body.style.opacity = 0;
         document.body.style.transition = 'opacity 0.5s ease';
         

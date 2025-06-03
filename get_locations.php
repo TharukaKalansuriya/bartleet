@@ -1,9 +1,8 @@
 <?php
 header('Content-Type: application/json');
 
-// Database connection - adjust these parameters according to your setup
+// Database connection 
 try {
-    // Replace with your database connection details
     $pdo = new PDO("mysql:host=localhost;dbname=bartleet", "root", "1234");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     

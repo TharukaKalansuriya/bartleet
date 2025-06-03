@@ -3,7 +3,7 @@
 session_start();
 
 // Define allowed roles
-$allowed_roles = ['admin', 'data_entry'];
+$allowed_roles = ['repair','admin', 'data_entry'];
 
 // Check if the user's role is not in the allowed roles
 if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
@@ -191,7 +191,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <label for="serialNo" class="block text-gray-700 font-medium mb-2">Machine Serial No <span class="text-red-500">*</span></label>
             <select id="serialNo" name="serialNo" required class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-300" onchange="updateModelDisplay()">
               <option value="">-- Select Machine --</option>
-              <!-- Options will be populated by JavaScript -->
             </select>
           </div>
         </div>

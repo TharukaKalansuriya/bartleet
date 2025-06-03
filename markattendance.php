@@ -2,7 +2,7 @@
 session_start();
 
 // Define allowed roles
-$allowed_roles = ['admin', 'data_entry'];
+$allowed_roles = ['repair','admin', 'data_entry'];
 
 // Check if the user's role is not in the allowed roles
 if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
@@ -15,26 +15,40 @@ require_once 'Database.php';
 $db = new Database();
 $conn = $db->getConnection();
 
+// Check if attendance has already been marked for today
+$today_attendance_check = $conn->query("SELECT COUNT(*) as count FROM attendance WHERE Date = CURDATE()");
+$attendance_exists = $today_attendance_check->fetch_assoc()['count'] > 0;
+
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $attendance = $_POST['attendance'] ?? [];
-
-    $success = true;
-    foreach ($attendance as $id => $status) {
-        $attend = ($status === 'Attend') ? 1 : 0;
-        $notAttend = ($status === 'NotAttend') ? 1 : 0;
-
-        $stmt = $conn->prepare("INSERT INTO attendance (ServicePersonId, Date, Attend, NotAttend) VALUES (?, CURDATE(), ?, ?)");
-        $stmt->bind_param("sii", $id, $attend, $notAttend);
-        if (!$stmt->execute()) {
-            $success = false;
-        }
-    }
-
-    if ($success) {
-        echo "<div class='bg-green-200 p-3 text-green-800 text-center'>Attendance submitted successfully!</div>";
+    // Check again before processing
+    $today_attendance_check = $conn->query("SELECT COUNT(*) as count FROM attendance WHERE Date = CURDATE()");
+    $attendance_exists = $today_attendance_check->fetch_assoc()['count'] > 0;
+    
+    if ($attendance_exists) {
+        echo "<div class='bg-yellow-200 p-3 text-yellow-800 text-center'>Attendance for today has already been marked!</div>";
     } else {
-        echo "<div class='bg-red-200 p-3 text-red-800 text-center'>An error occurred while submitting attendance.</div>";
+        $attendance = $_POST['attendance'] ?? [];
+
+        $success = true;
+        foreach ($attendance as $id => $status) {
+            $attend = ($status === 'Attend') ? 1 : 0;
+            $notAttend = ($status === 'NotAttend') ? 1 : 0;
+            $oncall = ($status === 'OnCall') ? 1 : 0;
+
+
+            $stmt = $conn->prepare("INSERT INTO attendance (ServicePersonId, Date, Attend, NotAttend, OnCall) VALUES (?, CURDATE(), ?, ?, ?)");
+            $stmt->bind_param("siii", $id, $attend, $notAttend, $oncall);
+            if (!$stmt->execute()) {
+                $success = false;
+            }
+        }
+
+        if ($success) {
+            echo "<div class='bg-green-200 p-3 text-green-800 text-center'>Attendance submitted successfully!</div>";
+        } else {
+            echo "<div class='bg-red-200 p-3 text-red-800 text-center'>An error occurred while submitting attendance.</div>";
+        }
     }
 }
 
@@ -101,6 +115,13 @@ $locations = $conn->query("SELECT DISTINCT Location FROM members")->fetch_all(MY
   </section>
     <h1 class="text-3xl font-bold mb-6 text-red-600">Mark Attendance</h1>
 
+    <?php if ($attendance_exists): ?>
+        <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 mb-6">
+            <p class="font-bold">Information:</p>
+            <p>Attendance for today (<?= date('Y-m-d') ?>) has already been marked. You cannot mark attendance again for the same day.</p>
+        </div>
+    <?php endif; ?>
+
     <!-- Filter Form -->
     <form method="get" class="mb-6 flex flex-wrap gap-4">
       <input type="text" name="search" placeholder="Search by name" value="<?= htmlspecialchars($search) ?>" class="p-2 border rounded-md w-64"/>
@@ -116,7 +137,7 @@ $locations = $conn->query("SELECT DISTINCT Location FROM members")->fetch_all(MY
     </form>
 
     <!-- Attendance Form -->
-    <form method="post">
+    <form method="post" <?= $attendance_exists ? 'style="pointer-events: none; opacity: 0.6;"' : '' ?>>
       <div class="overflow-auto max-h-[500px] border rounded-lg shadow">
         <table class="w-full text-left">
           <thead class="bg-red-200 sticky top-0">
@@ -126,6 +147,7 @@ $locations = $conn->query("SELECT DISTINCT Location FROM members")->fetch_all(MY
               <th class="p-3">Location</th>
               <th class="p-3 text-center">Attend</th>
               <th class="p-3 text-center">Not Attend</th>
+              <th class="p-3 text-center">On Call</th>
             </tr>
           </thead>
           <tbody class="bg-white">
@@ -135,10 +157,13 @@ $locations = $conn->query("SELECT DISTINCT Location FROM members")->fetch_all(MY
                 <td class="p-3"><?= htmlspecialchars($row['NAME']) ?></td>
                 <td class="p-3"><?= htmlspecialchars($row['Location']) ?></td>
                 <td class="p-3 text-center">
-                  <input type="radio" name="attendance[<?= $row['ServicePersonId'] ?>]" value="Attend" required />
+                  <input type="radio" name="attendance[<?= $row['ServicePersonId'] ?>]" value="Attend" <?= $attendance_exists ? 'disabled' : '' ?> />
                 </td>
                 <td class="p-3 text-center">
-                  <input type="radio" name="attendance[<?= $row['ServicePersonId'] ?>]" value="NotAttend" />
+                  <input type="radio" name="attendance[<?= $row['ServicePersonId'] ?>]" value="NotAttend" <?= $attendance_exists ? 'disabled' : '' ?> />
+                </td>
+                <td class="p-3 text-center">
+                  <input type="radio" name="attendance[<?= $row['ServicePersonId'] ?>]" value="OnCall" <?= $attendance_exists ? 'disabled' : '' ?> />
                 </td>
               </tr>
             <?php endwhile; ?>
@@ -147,8 +172,8 @@ $locations = $conn->query("SELECT DISTINCT Location FROM members")->fetch_all(MY
       </div>
 
       <div class="mt-6 text-center">
-        <button type="submit" class="bg-green-600 text-white font-semibold px-6 py-3 rounded-md hover:bg-green-700">
-          Submit Attendance
+        <button type="submit" class="bg-green-600 text-white font-semibold px-6 py-3 rounded-md hover:bg-green-700 <?= $attendance_exists ? 'cursor-not-allowed opacity-50' : '' ?>" <?= $attendance_exists ? 'disabled' : '' ?>>
+          <?= $attendance_exists ? 'Attendance Already Marked' : 'Submit Attendance' ?>
         </button>
       </div>
     </form>

@@ -11,7 +11,7 @@ if (!isset($_GET['location']) || empty($_GET['location'])) {
 $location = $_GET['location'];
 
 try {
-    // Database connection - adjust these parameters according to your setup
+    // Separate Database connection
     $pdo = new PDO("mysql:host=localhost;dbname=bartleet", "root", "1234");
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     

@@ -88,6 +88,10 @@ $db->closeConnection();
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Manage Machines</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Add Select2 for searchable dropdown -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 <body class="min-h-screen font-sans bg-cover bg-no-repeat bg-right" style="background-image: linear-gradient(to left, rgba(255, 128, 128, 0.05),rgba(211, 134, 119, 0.44)), url('img/background.jpg');">
 
@@ -159,7 +163,7 @@ $db->closeConnection();
       <!--Factories Dropdown-->
       <div>
         <label class="block font-semibold text-gray-700">Factory ID (FacId)</label>
-        <select name="FacId" id="FacId" class="w-full mt-1 p-3 border border-gray-300 rounded-xl">
+        <select name="FacId" id="FacId" class="w-full mt-1 p-3 border border-gray-300 rounded-xl factory-select">
           <option value="">Select a Factory</option>
           <?php
             mysqli_data_seek($factoryList, 0);
@@ -216,6 +220,15 @@ $db->closeConnection();
       document.getElementById('InstalledDate').value = date;
       document.getElementById('ServicePersonId').value = personId;
     }
+
+    // Enable Select2 for factory dropdown
+    $(document).ready(function() {
+      $('#FacId').select2({
+        placeholder: "Select or search a Factory",
+        allowClear: true,
+        width: '100%'
+      });
+    });
   </script>
 </body>
 </html>

@@ -307,10 +307,7 @@
             
             searchInput.addEventListener('keyup', function() {
                 const searchTerm = this.value.toLowerCase();
-                
-                // Simple search implementation - could be enhanced for production
                 if (searchTerm.length > 2) {
-                    // This is a placeholder for actual search functionality
                     alert('Search for: ' + searchTerm + '\n\nIn a real implementation, this would show matching results.');
                 }
             });

@@ -1,11 +1,11 @@
 <footer class="relative backdrop-blur-2xl bg-gradient-to-br from-gray-900/90 via-gray-800/80 to-gray-900/90 border-t border-green-500/30 mt-20 px-4 py-12 overflow-hidden">
-  <!-- Enhanced Blurred Background Effects -->
+ 
   <div class="absolute -top-20 -left-10 w-64 h-64 bg-red-600 rounded-full blur-3xl opacity-15 animate-pulse"></div>
   <div class="absolute top-0 right-1/4 w-56 h-56 bg-green-500 rounded-full blur-3xl opacity-15 animate-pulse"></div>
   <div class="absolute bottom-0 left-1/3 w-48 h-48 bg-green-600 rounded-full blur-3xl opacity-10 animate-pulse"></div>
   <div class="absolute -bottom-20 -right-10 w-64 h-64 bg-red-500 rounded-full blur-3xl opacity-10 animate-pulse"></div>
   
-  <!-- Enhanced Tech Grid Pattern -->
+
   <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMyMjIiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djJoLTJ2LTJoMnptMC00aDJ2Mmgt
 MnYtMnptLTQgMGgydjJoLTJ2LTJ6bS00IDRoMnYyaC0ydi0yem0wLTRoMnYyaC0ydi0yem0tNCA0aDJ2Mmgt
 MnYtMnptMC00aDJ2Mmgt
@@ -13,6 +13,7 @@ MnYtMnptLTQgMGgydjJoLTJ2LTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-20"></div>
   
   <!-- Animated Circuit Lines - Subtle Tech Effect -->
   <div class="absolute inset-0">
+
     <!-- Horizontal lines -->
     <div class="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500/10 to-transparent"></div>
     <div class="absolute top-2/3 left-0 w-full h-px bg-gradient-to-r from-transparent via-red-500/10 to-transparent"></div>
@@ -27,6 +28,7 @@ MnYtMnptLTQgMGgydjJoLTJ2LTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-20"></div>
   </div>
   
   <div class="relative z-10 max-w-7xl mx-auto">
+
     <!-- Two Column Layout on larger screens -->
     <div class="flex flex-col md:flex-row justify-between items-center">
       <!-- Left Column: Logo & Company Info -->
@@ -146,7 +148,7 @@ MnYtMnptLTQgMGgydjJoLTJ2LTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-20"></div>
         &copy; <?php echo date('Y'); ?> <span class="font-medium text-gray-400">Bartleet Agro-Tronics</span>. All rights reserved.
       </div>
       
-      <!-- Added: Certification/Verification Badge -->
+      <!-- Version Indicator with Subtle Glow -->
       <div class="hidden md:flex absolute -right-2 -bottom-4 items-center gap-1 px-3 py-1 bg-white/5 backdrop-blur-xl rounded-full border border-green-500/30 shadow-lg text-xs">
         <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
         <span class="text-green-400 font-medium">Version 1.0</span>

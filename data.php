@@ -222,7 +222,7 @@
       // Display content after loader fades
       setTimeout(function() {
         loader.style.display = 'none';
-        // Content is already displayed - no need to change display property
+        
         
         // Trigger animations for visible elements
         document.querySelector('.card-grid').classList.add('visible');

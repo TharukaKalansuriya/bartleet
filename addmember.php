@@ -192,11 +192,11 @@ $db->closeConnection();
         <input type="text" name="Location" id="Location" required class="w-full mt-1 p-3 border border-gray-300 rounded-xl" />
       </div>
       <div>
-        <label class="block font-semibold text-gray-700">EPF Number</label>
+        <label class="block font-semibold text-gray-700">Role</label>
         <input type="text" name="epf_number" id="epf_number" class="w-full mt-1 p-3 border border-gray-300 rounded-xl" />
       </div>
       <div>
-        <label class="block font-semibold text-gray-700">ETF Number</label>
+        <label class="block font-semibold text-gray-700">EPF/ETF Numbers</label>
         <input type="text" name="etf_number" id="etf_number" class="w-full mt-1 p-3 border border-gray-300 rounded-xl" />
       </div>
       <div>

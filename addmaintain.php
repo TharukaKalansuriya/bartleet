@@ -55,14 +55,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW())";
     
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sissssss", $contractId, $facId, $serialNo, $fsrNo, $serviceNote, $status, $servicePersonId, $date);
-    
-    if ($stmt->execute()) {
-        $message = "Maintenance record added successfully! Contract ID: " . $contractId;
-        $messageType = "success";
-    } else {
-        $message = "Error: " . $stmt->error;
+    if ($stmt === false) {
+        $message = "SQL Prepare Error: " . $conn->error;
         $messageType = "error";
+    } else {
+        // Catch fatal errors from execute (e.g., out of range, type mismatch)
+        try {
+            $stmt->bind_param("sissssss", $contractId, $facId, $serialNo, $fsrNo, $serviceNote, $status, $servicePersonId, $date);
+            if ($stmt->execute()) {
+                $message = "Maintenance record added successfully! Contract ID: " . $contractId;
+                $messageType = "success";
+            } else {
+                // Specific error for FSRno foreign key violation (error code 1452)
+                if ($stmt->errno == 1452 && strpos($stmt->error, 'FSRno') !== false) {
+                    $message = "Error: The FSR Number you entered does not exist or is invalid. Please check and try again.";
+                } elseif ($stmt->errno == 1264 && strpos($stmt->error, 'FSRno') !== false) {
+                    $message = "Error: The FSR Number value is out of range or not valid for this field. Please check and try again.";
+                } else {
+                    $message = "SQL Error: " . $stmt->error;
+                }
+                $messageType = "error";
+            }
+        } catch (mysqli_sql_exception $e) {
+            if (strpos($e->getMessage(), 'FSRno') !== false && strpos($e->getMessage(), 'Out of range') !== false) {
+                $message = "Error: The FSR Number value is out of range or not valid for this field. Please check and try again.";
+            } else {
+                $message = "SQL Fatal Error: " . htmlspecialchars($e->getMessage());
+            }
+            $messageType = "error";
+        }
     }
 }
 ?>

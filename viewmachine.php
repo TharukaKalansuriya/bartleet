@@ -2,7 +2,7 @@
 session_start();
 
 // Define allowed roles
-$allowed_roles = ['admin', 'manager'];
+$allowed_roles = ['repair','admin', 'manager'];
 
 // Check if the user's role is not in the allowed roles
 if (!isset($_SESSION['role']) || !in_array($_SESSION['role'], $allowed_roles)) {
@@ -86,7 +86,7 @@ $db->closeConnection();
       <thead class="bg-red-200 text-red-800 sticky top-0">
   <tr>
     <th class="px-4 py-2">Serial No</th>
-    <th class="px-4 py-2">Factory Name</th> <!-- Changed -->
+    <th class="px-4 py-2">Factory Name</th> 
     <th class="px-4 py-2">Stage</th>
     <th class="px-4 py-2">Model</th>
     <th class="px-4 py-2">Installed Date</th>
@@ -97,7 +97,7 @@ $db->closeConnection();
   <?php while ($row = $machines->fetch_assoc()): ?>
     <tr class="cursor-pointer bg-white hover:bg-red-100 transition" onclick="fillForm('<?= $row['SerialNo'] ?>', '<?= htmlspecialchars($row['FacName'], ENT_QUOTES) ?>', '<?= htmlspecialchars($row['MachineStage'], ENT_QUOTES) ?>', '<?= htmlspecialchars($row['Model'], ENT_QUOTES) ?>', '<?= $row['InstalledDate'] ?>', '<?= $row['ServicePersonId'] ?>')">
       <td class="px-4 py-2"><?= $row['SerialNo'] ?></td>
-      <td class="px-4 py-2"><?= $row['FacName'] ?></td> <!-- Changed -->
+      <td class="px-4 py-2"><?= $row['FacName'] ?></td> 
       <td class="px-4 py-2"><?= $row['MachineStage'] ?></td>
       <td class="px-4 py-2"><?= $row['Model'] ?></td>
       <td class="px-4 py-2"><?= $row['InstalledDate'] ?></td>
@@ -119,7 +119,7 @@ $db->closeConnection();
   const rows = document.querySelectorAll("tbody tr");
 
   rows.forEach(row => {
-    const serialNoCell = row.cells[0]; // SerialNo column
+    const serialNoCell = row.cells[0]; 
     if (serialNoCell) {
       const serialNoText = serialNoCell.textContent.toLowerCase();
       row.style.display = serialNoText.includes(filter) ? "" : "none";
@@ -130,7 +130,7 @@ $db->closeConnection();
 
     function fillForm(serialNo, facId, stage, model, installedDate, servicePersonId) {
       console.log(serialNo, facId, stage, model, installedDate, servicePersonId);
-      // You can add your form-filling logic here
+     
     }
   </script>
 

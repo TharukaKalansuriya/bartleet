@@ -125,12 +125,12 @@ $db->closeConnection();
             </div>
             
             <div class="flex justify-between items-center">
-              <span class="font-semibold text-gray-700">EPF Number:</span>
+              <span class="font-semibold text-gray-700">Role:</span>
               <span id="profileEPF" class="text-gray-600"></span>
             </div>
             
             <div class="flex justify-between items-center">
-              <span class="font-semibold text-gray-700">ETF Number:</span>
+              <span class="font-semibold text-gray-700">EPF/ETF Numbers:</span>
               <span id="profileETF" class="text-gray-600"></span>
             </div>
           </div>
@@ -147,7 +147,7 @@ $db->closeConnection();
       const rows = document.querySelectorAll("#memberTable tr");
 
       rows.forEach(row => {
-        const nameCell = row.cells[2]; // Name column (index 2 now due to photo column)
+        const nameCell = row.cells[2];
         if (nameCell) {
           const nameText = nameCell.textContent.toLowerCase();
           row.style.display = nameText.includes(filter) ? "" : "none";
